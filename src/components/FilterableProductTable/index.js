@@ -3,6 +3,8 @@ import React, { Fragment } from "react"
 import { ProductTable } from "./ProductTable"
 import { SearchBar } from "./SearchBar"
 
+import api from "api"
+
 export class FilterableProductTable extends React.Component {
   state = {
     products: [],
@@ -10,11 +12,7 @@ export class FilterableProductTable extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await fetch(
-      "https://my-json-server.typicode.com/Claim-Academy-JS/products/products"
-    )
-
-    this.setState({ products: await res.json() })
+    this.setState({ products: await api.index() })
   }
 
   render() {
