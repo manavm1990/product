@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 
 import { ProductTable } from "./ProductTable"
 import { SearchBar } from "./SearchBar"
@@ -17,11 +17,10 @@ export class FilterableProductTable extends React.Component {
 
   render() {
     return (
-      <Fragment>
-        <p>FilterableProductTable</p>
-        <ProductTable />
+      <main>
         <SearchBar />
-      </Fragment>
+        <ProductTable products={this.state.products} />
+      </main>
     )
   }
 }
