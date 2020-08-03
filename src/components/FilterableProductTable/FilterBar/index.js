@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from "react"
 
 // TODO: Receive a prop so this dumb 🧒🏽 knows what to do...
-export const SearchBar = ({ handler }) => {
+export const FilterBar = ({ handler }) => {
   const handleChange = (event) => {
     handler(event)
   }
@@ -18,6 +18,6 @@ export const SearchBar = ({ handler }) => {
     )
 }
 
-SearchBar.propTypes = {
+FilterBar.propTypes = {
   handler: PropTypes.func
 }
