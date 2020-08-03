@@ -7,6 +7,7 @@ import api from "api"
 
 export class FilterableProductTable extends React.Component {
   state = {
+    inStockOnly: false,
     products: [],
     searchText: "",
   }
@@ -16,13 +17,20 @@ export class FilterableProductTable extends React.Component {
   }
 
   searchHandler = ({ target }) => {
-    this.setState({ searchText: target.value })
+    if (target.type === "checkbox") {
+      this.setState({ inStockOnly: target.checked })
+    } else {
+      this.setState({ searchText: target.value })
+    }
   }
 
   render() {
-     const filteredProducts = this.state.products.filter(({ name }) =>
-      name.toLowerCase().startsWith(this.state.searchText.toLowerCase())
-    )
+    const filteredProducts = this.state.products
+      .filter(({ name }) =>
+        name.toLowerCase().startsWith(this.state.searchText.toLowerCase())
+      )
+      .filter(({ stocked }) => (this.state.inStockOnly ? stocked : true))
+
     return (
       <main className="flex flex--align-center flex--column">
         <SearchBar handler={this.searchHandler} />

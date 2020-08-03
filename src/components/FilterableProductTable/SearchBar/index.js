@@ -7,13 +7,15 @@ export const SearchBar = ({ handler }) => {
     handler(event)
   }
 
-    return <div className="flex flex--column flex--align-center">
-      <input type="search" onChange={handleChange} />
-      <label>
-        <input type="checkbox" />
-      In Stock Only
-    </label>
-    </div>
+    return (
+      <div className="flex flex--column flex--align-center">
+        <input type="search" onChange={handleChange} />
+        <label>
+          <input type="checkbox" onChange={handleChange} />
+          In Stock Only
+        </label>
+      </div>
+    )
 }
 
 SearchBar.propTypes = {
