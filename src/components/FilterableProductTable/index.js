@@ -17,11 +17,16 @@ export class FilterableProductTable extends React.Component {
     this.setState({ products: await api.index() })
   }
 
-  filterHandler = ({ target: {type, checked, value} }) => {
-    if (type === "checkbox") {
-      this.setState({ inStockOnly: checked })
-    } else {
-      this.setState({ searchText: value })
+  filterHandler = ({ target: { type, checked, value } }) => {
+    switch (type) {
+      case 'checkbox':
+        this.setState({ inStockOnly: checked })
+        break;
+      case 'number':
+        this.setState({ maxPrice: value })
+        break;
+      default:
+        this.setState({ searchText: value })
     }
   }
 
@@ -30,7 +35,12 @@ export class FilterableProductTable extends React.Component {
       .filter(({ name }) =>
         name.toLowerCase().startsWith(this.state.searchText.toLowerCase())
       )
-      .filter(({ stocked }) => (this.state.inStockOnly ? stocked : true)).filter(({price}) => this.state.maxPrice ? Number.parseFloat(price.slice(1)) <= this.state.maxPrice : true)
+      .filter(({ stocked }) => (this.state.inStockOnly ? stocked : true))
+      .filter(({ price }) =>
+        this.state.maxPrice
+          ? Number.parseFloat(price.slice(1)) <= this.state.maxPrice
+          : true
+      )
 
     return (
       <main className="flex flex--align-center flex--column">
