@@ -15,10 +15,15 @@ export class FilterableProductTable extends React.Component {
     this.setState({ products: await api.index() })
   }
 
+  searchHandler = ({target}) => {
+    // TODO: Log whatever I type into search bar
+    console.log(target.value)
+  }
+
   render() {
     return (
       <main className="flex flex--align-center flex--column">
-        <SearchBar />
+        <SearchBar handler={this.searchHandler}/>
         <ProductTable products={this.state.products} />
       </main>
     )
