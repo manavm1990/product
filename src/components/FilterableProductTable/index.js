@@ -17,7 +17,7 @@ export class FilterableProductTable extends React.Component {
 
   render() {
     return (
-      <main>
+      <main className="flex flex--align-center flex--column">
         <SearchBar />
         <ProductTable products={this.state.products} />
       </main>
