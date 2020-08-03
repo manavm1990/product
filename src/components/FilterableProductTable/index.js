@@ -16,11 +16,11 @@ export class FilterableProductTable extends React.Component {
     this.setState({ products: await api.index() })
   }
 
-  searchHandler = ({ target }) => {
-    if (target.type === "checkbox") {
-      this.setState({ inStockOnly: target.checked })
+  searchHandler = ({ target: {type, checked, value} }) => {
+    if (type === "checkbox") {
+      this.setState({ inStockOnly: checked })
     } else {
-      this.setState({ searchText: target.value })
+      this.setState({ searchText: value })
     }
   }
 
