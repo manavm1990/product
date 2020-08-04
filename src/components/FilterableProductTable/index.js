@@ -1,52 +1,48 @@
-import React from "react"
+import React, { useState } from "react"
 
 import { ProductTable } from "./ProductTable"
 import { FilterBar } from "./FilterBar"
 
 import api from "api"
 
-export class FilterableProductTable extends React.Component {
-  state = {
-    inStockOnly: false,
-    maxPrice: null,
-    products: [],
-    searchText: "",
-  }
+export const FilterableProductTable = () => {
+  const [inStockOnly, setInStockOnly] = useState(false);
+  const [maxPrice, setMaxPrice] = useState(null);
+  const [products, setProducts] = useState([])
+  const [searchText, setSearchText] = useState("")
 
   async componentDidMount() {
     this.setState({ products: await api.index() })
   }
 
-  filterHandler = ({ target: { type, checked, value } }) => {
+  const filterHandler = ({ target: { type, checked, value } }) => {
     switch (type) {
       case 'checkbox':
-        this.setState({ inStockOnly: checked })
+        setInStockOnly(checked)
         break;
       case 'number':
-        this.setState({ maxPrice: value })
+        setMaxPrice(value)
         break;
       default:
-        this.setState({ searchText: value })
+        setSearchText(value)
     }
   }
 
-  render() {
-    const filteredProducts = this.state.products
+  const filteredProducts = this.state.products
       .filter(({ name }) =>
-        name.toLowerCase().startsWith(this.state.searchText.toLowerCase())
+        name.toLowerCase().startsWith(searchText.toLowerCase())
       )
-      .filter(({ stocked }) => (this.state.inStockOnly ? stocked : true))
+      .filter(({ stocked }) => (inStockOnly ? stocked : true))
       .filter(({ price }) =>
         this.state.maxPrice
-          ? Number.parseFloat(price.slice(1)) <= this.state.maxPrice
+          ? Number.parseFloat(price.slice(1)) <= maxPrice
           : true
       )
 
     return (
       <main className="flex flex--align-center flex--column">
-        <FilterBar handler={this.filterHandler} />
+        <FilterBar handler={filterHandler} />
         <ProductTable products={filteredProducts} />
       </main>
     )
-  }
 }
