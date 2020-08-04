@@ -24,8 +24,8 @@ export const ProductTable = ({ products }) => {
   )
 
   const renderProductRows = (prods) =>
-    prods.map(({ name, price }, i) => (
-      <ProductRow name={name} price={price} key={i} />
+    prods.map(({ name, price, stocked }, i) => (
+      <ProductRow name={name} price={price} stocked={stocked} key={i} />
     ))
 
   const renderTable = () =>
@@ -44,9 +44,7 @@ export const ProductTable = ({ products }) => {
           <th>Price</th>
         </tr>
       </thead>
-      <tbody>
-        {renderTable()}
-      </tbody>
+      <tbody>{renderTable()}</tbody>
     </table>
   )
 }

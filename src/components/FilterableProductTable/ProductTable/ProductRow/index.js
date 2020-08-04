@@ -1,9 +1,11 @@
 import PropTypes from "prop-types"
 import React from "react"
 
-export const ProductRow = ({ name, price }) => (
+import "./ProductRow.css"
+
+export const ProductRow = ({ name, price, stocked }) => (
   <tr>
-    <td>{name}</td>
+    <td className={!stocked ? "out-of-stock" : ""}>{name}</td>
     <td>{price}</td>
   </tr>
 )
@@ -11,4 +13,5 @@ export const ProductRow = ({ name, price }) => (
 ProductRow.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string,
+  stocked: PropTypes.bool
 }
