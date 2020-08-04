@@ -17,6 +17,8 @@ export const FilterableProductTable = () => {
     })()
   },
     // Prevent 'useEffect' from firing on all mounts - and only on updates.
+    // The 2nd argument specifies specific pieces of state to trigger the effect on when mounting.
+    // Since this an empty array, we prevent unnecessary 'effects.'
     [])
 
   const filterHandler = ({ target: { type, checked, value } }) => {
